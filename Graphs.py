@@ -1,6 +1,5 @@
 # importing the required module
 import matplotlib.pyplot as plt
-# number of entries
 logs = int(input("The number of logs you want to make: "))
 # x axis values
 x = []
@@ -21,7 +20,9 @@ plt.ylabel('Lap time')
 
 # giving a title to my graph
 plt.title('Graph for lap vs lap-time:')
+plt.legend(['Your progress'])
 
 # function to show the plot
+plt.savefig('plot.png',dpi=72,bbox_inches="tight")
 plt.show()
 
