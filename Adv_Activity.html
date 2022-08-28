@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title>My Chart.js Chart</title>
+</head>
+<body>
+    <p>Enter Date(Any format but uniform for each entry): </p>
+    <input type="text" id="date">
+    <p>Enter your structured active time for the day(in minutes): </p>
+    <input type="number" id="stime">
+    <p>Enter your unstructured active time for the day(in minutes):</p>
+    <input type="number" id="utime"><br>
+    <button onclick="graphMe()">Update Graph</button>
+  <div class="container">
+    <canvas id="myChart"></canvas>
+  </div>
+
+  <script>
+    let myChart = document.getElementById('myChart').getContext('2d');
+    // Global Options
+    Chart.defaults.global.defaultFontFamily = 'Lato';
+    Chart.defaults.global.defaultFontSize = 18;
+    Chart.defaults.global.defaultFontColor = '#777';
+
+    let massPopChart = new Chart(myChart, {
+      type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+      data:{
+        labels: [],
+        datasets:[{
+          label:'Structured activity level per day(in minutes)',
+          data: [],
+          backgroundColor: 'aqua',
+          borderWidth:3,
+          borderColor:'green',
+          hoverBorderWidth:3,
+          hoverBorderColor:'#000'
+        },{
+             label:'Unstructured activity level per day(in minutes)',
+             data: [],
+             backgroundColor: 'pink',
+             borderWidth:3,
+             borderColor:'red',
+             hoverBorderWidth:3,
+             hoverBorderColor:'blue'
+        }]
+      },
+      options:{ 
+        title:{
+          display:true,
+          text:'Activity level per day(in minutes)',
+          fontSize:25
+        },
+        legend:{
+          display:true,
+          position:'right',
+          labels:{
+            fontColor:'#000'
+          }
+        },
+        layout:{
+          padding:{
+            left:50,
+            right:0,
+            bottom:0,
+            top:0
+          }
+        },
+        tooltips:{
+          enabled:true
+        },
+        scales: {
+            xAxes: [{
+                stacked: true
+            }],
+            yAxes: [{
+                stacked: true
+            }]
+        }
+      }
+    });
+    function graphMe(){
+  
+  var v1 = document.getElementById("date").value;
+  var v2 = parseFloat(document.getElementById("stime").value);
+  var v3 = parseFloat(document.getElementById("utime").value);
+  
+ 
+
+if (!v1) { v1 = 0; }
+if (!v2) { v2 = 0; }
+if (!v3) { v3 = 0; }
+
+massPopChart.data.labels.push(v1);
+massPopChart.data.datasets[0].data.push(v2);
+massPopChart.data.datasets[1].data.push(v3);
+massPopChart.update();  }
+  </script>
+</body>
+</html>
